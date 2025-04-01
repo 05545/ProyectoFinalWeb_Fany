@@ -26,7 +26,7 @@
           <!-- ***** Menu Start ***** -->
           <ul class="nav">
             <li><a href="index.html" class="active">Inicio</a></li>
-            <li><a href="genres.html">Géneros</a></li>
+            <li><a href="{{ route('client.gender') }}">Géneros</a></li>
             <li><a href="streaming.html">Catálogo</a></li>
             <li><a href="plans.html">Planes</a></li>
             <li><a href="login.html">Iniciar Sesión</a></li>
