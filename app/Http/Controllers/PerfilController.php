@@ -12,9 +12,16 @@ use App\Models\TablaUsuarios as Usuario;
 class PerfilController extends Controller
 {
 
+    //vista para el perfil del administrador
     public function index()
     {
         return view('admon.perfil');
+    }
+
+    //vista para el perfil del operador
+    public function index_operador()
+    {
+        return view('operador.perfil_op');
     }
 
     public function update(Request $request, $id)

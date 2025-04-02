@@ -9,6 +9,9 @@ use App\Http\Controllers\admin\PlanesController;
 use App\Http\Controllers\admin\VideosControllr;
 use App\Http\Controllers\PerfilController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\op\TableroOperadorController;
+use App\Http\Controllers\op\ClientesController;
+use App\Http\Controllers\op\PagosController;
 
 Route::get('/', function () {
     return view('client.homePage');
@@ -50,3 +53,9 @@ Route::post('/administrador/planes/store', [PlanesController::class, 'store'])->
 Route::post('/administrador/videos/store', [VideosControllr::class, 'store_videos'])->name('admin.videos.store');
 Route::put('/administrador/perfil/update/{id}', [PerfilController::class, 'update'])->name('admin.perfil.update');
 Route::put('/administrador/perfil/update_password/{id}', [PerfilController::class, 'cambiar_contrasena'])->name('admin.perfil.update_password');
+
+//Rutas para vista del operador
+Route::get('/operador/home', [TableroOperadorController::class, 'index'])->name('operador.home');
+Route::get('/operador/clientes', [ClientesController::class, 'index'])->name('operador.client');
+Route::get('/operador/perfil', [PerfilController::class, 'index_operador'])->name('operador.Perfil');
+Route::get('/operador/pagos', [PagosController::class, 'index'])->name('operador.pagos');

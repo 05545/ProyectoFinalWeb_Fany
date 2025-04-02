@@ -1,0 +1,539 @@
+/* Estilos RGB para tablas y modales */
+:root {
+    /* Colores RGB vibrantes */
+    --purple-primary: #9d00ff;
+    --purple-light: #c17fff;
+    --purple-dark: #6a00b0;
+    --purple-glow: #b347ff;
+    
+    /* Colores RGB complementarios */
+    --rgb-blue: #4d7cff;
+    --rgb-pink: #ff3dbd;
+    --rgb-cyan: #00e5ff;
+    --rgb-yellow: #ffcc00;
+    --rgb-green: #00ff88;
+    
+    /* Colores de fondo */
+    --bg-dark: #0a0a0a;
+    --bg-darker: #050505;
+    --bg-card: #111111;
+    --bg-sidebar: #0f0f0f;
+    --bg-header: #0f0f0f;
+    
+    /* Colores de texto */
+    --text-light: #ffffff;
+    --text-muted: #a0a0a0;
+    --text-dark: #0a0a0a;
+    
+    /* Colores de borde */
+    --border-color: #222222;
+    --glow-intensity: 5px;
+  }
+  
+  /* Estilos generales */
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Rajdhani', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-light);
+  }
+  
+  h3 {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    font-weight: 700;
+  }
+  
+  h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple-primary), var(--rgb-pink), var(--rgb-blue));
+    background-size: 300% 100%;
+    animation: gradient-move 5s ease infinite;
+  }
+  
+  @keyframes gradient-move {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .content-header h1 {
+    text-shadow: 0 0 10px var(--purple-glow);
+    font-size: 2.5rem;
+  }
+  
+  /* Estilos para tablas */
+  .table {
+    background-color: rgba(10, 10, 10, 0.7) !important;
+    color: var(--text-light) !important;
+    border-radius: 15px;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+  }
+  
+  .table-light {
+    background-color: rgba(20, 20, 20, 0.7) !important;
+  }
+  
+  .table thead th {
+    background: linear-gradient(45deg, var(--purple-dark), var(--purple-primary)) !important;
+    color: var(--text-light) !important;
+    border: none !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    padding: 15px !important;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .table tbody tr:hover {
+    background-color: rgba(157, 0, 255, 0.1) !important;
+    transform: scale(1.01);
+  }
+  
+  .table td {
+    padding: 12px 15px !important;
+    vertical-align: middle !important;
+    border-top: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .table img {
+    border-radius: 8px;
+    box-shadow: 0 0 var(--glow-intensity) rgba(157, 0, 255, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .table img:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Estilos para badges */
+  .badge {
+    padding: 8px 12px;
+    font-weight: 600;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  .badge-success {
+    background: linear-gradient(45deg, var(--rgb-green), #00cc6a) !important;
+    color: var(--text-dark) !important;
+  }
+  
+  .badge-warning {
+    background: linear-gradient(45deg, var(--rgb-yellow), #e6b800) !important;
+    color: var(--text-dark) !important;
+  }
+  
+  .badge-danger {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099) !important;
+    color: var(--text-light) !important;
+  }
+  
+  .badge-info {
+    background: linear-gradient(45deg, var(--rgb-cyan), #00b3cc) !important;
+    color: var(--text-dark) !important;
+  }
+  
+  .badge-secondary {
+    background: linear-gradient(45deg, #666666, #444444) !important;
+    color: var(--text-light) !important;
+  }
+  
+  /* Estilos para botones */
+  .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: none;
+  }
+  
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    z-index: -1;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .btn:hover::before {
+    transform: translateY(0);
+  }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+  }
+  
+  .btn-primary {
+    background: linear-gradient(45deg, var(--purple-primary), var(--purple-dark)) !important;
+    color: var(--text-light) !important;
+  }
+  
+  .btn-info {
+    background: linear-gradient(45deg, var(--rgb-blue), #3d62cc) !important;
+    color: var(--text-light) !important;
+  }
+  
+  .btn-success {
+    background: linear-gradient(45deg, var(--rgb-green), #00cc6a) !important;
+    color: var(--text-dark) !important;
+  }
+  
+  .btn-danger {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099) !important;
+    color: var(--text-light) !important;
+  }
+  
+  .btn-secondary {
+    background: linear-gradient(45deg, #666666, #444444) !important;
+    color: var(--text-light) !important;
+  }
+  
+  .btn-warning {
+    background: linear-gradient(45deg, var(--rgb-yellow), #e6b800) !important;
+    color: var(--text-dark) !important;
+  }
+  
+  /* Estilos para modales */
+  .modal-content {
+    background-color: var(--bg-card);
+    color: var(--text-light);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px;
+    background: linear-gradient(45deg, var(--purple-dark), var(--purple-primary));
+  }
+  
+  .modal-header .close {
+    color: var(--text-light);
+    text-shadow: none;
+    opacity: 0.8;
+  }
+  
+  .modal-header .close:hover {
+    opacity: 1;
+  }
+  
+  .modal-title {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 15px 20px;
+  }
+  
+  /* Estilos para formularios */
+  .form-control, .form-select {
+    background-color: rgba(10, 10, 10, 0.7);
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus, .form-select:focus {
+    background-color: rgba(10, 10, 10, 0.9);
+    color: var(--text-light);
+    border-color: var(--purple-primary);
+    box-shadow: 0 0 0 0.25rem rgba(157, 0, 255, 0.25);
+  }
+  
+  .form-control-file {
+    color: var(--text-light);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--purple-light);
+  }
+  
+  /* Estilos para paginación */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination .page-item .page-link {
+    background-color: var(--bg-card);
+    color: var(--text-light);
+    border: 1px solid var(--border-color);
+    margin: 0 5px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background: linear-gradient(45deg, var(--purple-primary), var(--purple-dark));
+    border-color: var(--purple-primary);
+    color: var(--text-light);
+    box-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
+  }
+  
+  .pagination .page-item .page-link:hover {
+    background-color: rgba(157, 0, 255, 0.2);
+    border-color: var(--purple-primary);
+    color: var(--text-light);
+  }
+  
+  /* Estilos para iconos */
+  .fas {
+    margin-right: 5px;
+  }
+  
+  .btn .fas {
+    margin-right: 0;
+  }
+  
+  /* Efectos de neón para textos importantes */
+  .neon-text {
+    color: #fff;
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px var(--purple-primary),
+      0 0 30px var(--purple-primary),
+      0 0 40px var(--purple-primary),
+      0 0 55px var(--purple-primary);
+  }
+  
+  /* Animaciones para elementos interactivos */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .btn-primary:hover {
+    animation: pulse 1.5s infinite;
+  }
+  
+  /* Estilos para scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--purple-primary);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--purple-light);
+  }
+  
+  /* Estilos específicos para cada tabla */
+  /* Tabla de Usuarios */
+  .table-usuarios img {
+    border: 2px solid var(--purple-primary);
+  }
+  
+  /* Tabla de Streamings */
+  .table-streamings img {
+    border: 2px solid var(--rgb-blue);
+  }
+  
+  /* Tabla de Videos */
+  .table-videos td:nth-child(3) {
+    color: var(--rgb-cyan);
+    font-weight: 600;
+  }
+  
+  /* Tabla de Planes */
+  .table-planes .badge {
+    min-width: 100px;
+    text-align: center;
+  }
+  
+  /* Tabla de Géneros */
+  .table-generos {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  /* Estilos para los modales específicos */
+  /* Modal de Usuarios */
+  #Update_user .modal-header {
+    background: linear-gradient(45deg, var(--rgb-blue), #3d62cc);
+  }
+  
+  #Delete_user .modal-header {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099);
+  }
+  
+  /* Modal de Streamings */
+  #Modal_update .modal-header {
+    background: linear-gradient(45deg, var(--rgb-cyan), #00b3cc);
+  }
+  
+  #Modal_delete .modal-header {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099);
+  }
+  
+  /* Modal de Videos */
+  #Modal_update_video .modal-header {
+    background: linear-gradient(45deg, var(--rgb-green), #00cc6a);
+  }
+  
+  #Modal_delete_video .modal-header {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099);
+  }
+  
+  /* Modal de Planes */
+  #Modal_plan_update .modal-header {
+    background: linear-gradient(45deg, var(--rgb-yellow), #e6b800);
+  }
+  
+  #Modal_plan_delete .modal-header {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099);
+  }
+  
+  /* Modal de Géneros */
+  #Update_genero .modal-header {
+    background: linear-gradient(45deg, var(--purple-primary), var(--purple-dark));
+  }
+  
+  #Delete_genero .modal-header {
+    background: linear-gradient(45deg, var(--rgb-pink), #cc0099);
+  }
+  
+  /* Estilos para los botones de acción */
+  .btn-action {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 3px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-action:hover {
+    transform: translateY(-3px) rotate(15deg);
+  }
+  
+  .btn-action i {
+    margin: 0;
+  }
+  
+  /* Estilos para los estados */
+  .text-success {
+    color: var(--rgb-green) !important;
+    font-weight: 600;
+  }
+  
+  .text-warning {
+    color: var(--rgb-yellow) !important;
+    font-weight: 600;
+  }
+  
+  .text-danger {
+    color: var(--rgb-pink) !important;
+    font-weight: 600;
+  }
+  
+  /* Estilos para el contenedor principal */
+  .container-fluid {
+    padding: 20px;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.05) 0%, transparent 20%),
+      radial-gradient(circle at 90% 30%, rgba(255, 61, 189, 0.05) 0%, transparent 20%),
+      radial-gradient(circle at 50% 80%, rgba(77, 124, 255, 0.05) 0%, transparent 20%);
+  }
+  
+  /* Estilos para las filas */
+  .row {
+    margin-bottom: 30px;
+  }
+  
+  /* Estilos para los títulos de sección */
+  .section-title {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--purple-primary), var(--rgb-pink), var(--rgb-blue));
+    background-size: 300% 100%;
+    animation: gradient-move 5s ease infinite;
+  }
