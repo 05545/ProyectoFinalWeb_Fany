@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\administrador;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,7 +17,7 @@ class UsuariosController extends Controller
     public function index()
     {
         $roles=TablaRoles::all();
-        return view('admin.Usuarios', compact('roles'));
+        return view('admon.usuarios', compact('roles'));
     }
 
     public function store(Request $request){

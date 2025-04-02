@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function iniciar_sesion(Request $request)
     {
-        //dd($request->all());
+       // dd($request->all());
         // Validamos los datos enviados
         $request->validate([
             'email'    => 'required|string|email',

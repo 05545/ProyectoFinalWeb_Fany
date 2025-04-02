@@ -260,7 +260,8 @@
       </div>
       
       <div class="card-body p-4">
-        <form id="loginForm">
+        <form id="loginForm" action="{{route('client.iniciar_sesion')}}" method="POST">
+          @csrf
           <div class="form-group">
             <span class="input-group-text">
               <i class="fas fa-envelope"></i>
@@ -273,7 +274,7 @@
             <span class="input-group-text">
               <i class="fas fa-lock"></i>
             </span>
-            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
             <span class="password-toggle" id="passwordToggle">
               <i class="fas fa-eye"></i>
             </span>
@@ -326,78 +327,7 @@
       const loadingSpinner = document.getElementById('loadingSpinner');
       
       // Toggle password visibility
-      passwordToggle.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        
-        // Toggle eye icon
-        const icon = this.querySelector('i');
-        icon.classList.toggle('fa-eye');
-        icon.classList.toggle('fa-eye-slash');
-      });
-      
-      // Validate email
-      function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-      }
-      
-      // Form validation
-      loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        let isValid = true;
-        
-        // Reset errors
-        emailError.style.display = 'none';
-        passwordError.style.display = 'none';
-        
-        // Validate email
-        if (!emailInput.value) {
-          emailError.textContent = 'El correo es requerido';
-          emailError.style.display = 'block';
-          isValid = false;
-        } else if (!validateEmail(emailInput.value)) {
-          emailError.textContent = 'Ingresa un correo válido';
-          emailError.style.display = 'block';
-          isValid = false;
-        }
-        
-        // Validate password
-        if (!passwordInput.value) {
-          passwordError.textContent = 'La contraseña es requerida';
-          passwordError.style.display = 'block';
-          isValid = false;
-        } else if (passwordInput.value.length < 6) {
-          passwordError.textContent = 'La contraseña debe tener al menos 6 caracteres';
-          passwordError.style.display = 'block';
-          isValid = false;
-        }
-        
-        // If valid, submit form
-        if (isValid) {
-          // Show loading state
-          buttonText.textContent = 'Iniciando sesión';
-          loadingSpinner.classList.remove('d-none');
-          loginButton.disabled = true;
-          
-          // Simulate API call
-          setTimeout(function() {
-            console.log('Form submitted:', {
-              email: emailInput.value,
-              password: passwordInput.value,
-              rememberMe: document.getElementById('rememberMe').checked
-            });
-            
-            // Reset loading state
-            buttonText.textContent = 'Iniciar sesión';
-            loadingSpinner.classList.add('d-none');
-            loginButton.disabled = false;
-            
-            // Here you would typically redirect or show success message
-          }, 1500);
-        }
-      });
+    );
       
       // Add ripple effect to button
       loginButton.addEventListener('click', function(e) {
@@ -427,7 +357,6 @@
           this.parentElement.classList.remove('focused');
         });
       });
-    });
   </script>
 </body>
 </html>

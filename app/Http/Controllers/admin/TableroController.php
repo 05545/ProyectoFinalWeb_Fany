@@ -23,6 +23,6 @@ class TableroController extends Controller
         $streamings = Streaming::all();
         $videos = Videos::join('streaming', 'streaming.id_streaming', '=', 'videos.id_streaming')->select('videos.*', 'streaming.*')->get();
         // Pasar los datos a la vista
-        return view('admon.home');
+        return view('admon.home', compact('usuarios', 'roles', 'generos', 'planes', 'streamings', 'videos'));
     }
 }

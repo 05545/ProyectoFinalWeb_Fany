@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\administrador;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,7 @@ class VideosControllr extends Controller
             ->where('videos.nombre_temporada', null)
             ->get();
 
-        return view('admin.peliculas', compact('generos', 'streamings', 'videos'));
+        return view('admon.movies', compact('generos', 'streamings', 'videos'));
     }
 
     public function store(Request $request){
@@ -149,7 +149,7 @@ class VideosControllr extends Controller
         $request->validate([
             'video' => 'required|string|max:255',
             'nombre_temporada' => 'nullable|string',
-            'video_temporada' => 'required|integer',
+            'video_temporada' => 'nullable|integer',
             'capitulo_temporada' => 'nullable|integer',
             'descripcion_capitulo_temporada' => 'nullable|string',
             'id_streaming' => 'required|exists:streaming,id_streaming',
@@ -167,7 +167,7 @@ class VideosControllr extends Controller
         // Guardar el archivo de video
         $video->save();
 
-        return redirect()->route('admin.tablero')->with('success', 'Video creado correctamente');
+        return redirect()->route('admin.usuarios')->with('success', 'Video creado correctamente');
     }
 
     public function update_videos(Request $request, $id){

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\administrador;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ class PlanesController extends Controller
 {
     public function index()
     {
-        return view('admin.planes');
+        return view('admon.plane');
     }
 
     

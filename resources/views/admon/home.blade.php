@@ -32,7 +32,7 @@
           @foreach ($usuarios as $User)
           <tr>
             <td>
-              <img class="img-fluid rounded" src="{{ asset($User->imagen_usuario) }}" alt="User" style="max-width: 50px;">
+                <img class="img-fluid rounded" src="{{ asset('storage/' . $User->imagen_usuario) }}" alt="User" style="max-width: 50px;">
             </td>
             <td>{{ $User->nombre_usuario }}</td>
             <td>{{ $User->ap_usuario . ' ' . $User->am_usuario }}</td>
@@ -63,7 +63,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form action="{{route('admin.usuarios.update', ['id' => $User->id_usuario ])}}" method="POST" enctype="multipart/form-data">
+                  <form action="{{route('admin.update', ['id' => $User->id_usuario ])}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -140,7 +140,7 @@
                   ¿Está seguro de que desea eliminar al usuario "{{ $User->nombre_usuario }}"?
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('admin.usuarios.destroy', ['id' => $User->id_usuario]) }}" method="POST">
+                    <form action="{{ route('admin.usuarios.delete', ['id' => $User->id_usuario]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
@@ -289,7 +289,7 @@
                   ¿Está seguro de que desea eliminar el streaming "{{ $streaming->nombre_streaming }}"?
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('admin.streaming.destroy', ['id' => $streaming->id_streaming]) }}" method="POST">
+                    <form action="{{ route('admin.streaming.delete', ['id' => $streaming->id_streaming]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
@@ -347,7 +347,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.streaming.update-video', ['id' => $video->id_video]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.videos.update', ['id' => $video->id_video]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -413,7 +413,7 @@
                   ¿Está seguro de que desea eliminar este video?
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('admin.streaming.destroy-video', ['id' => $video->id_video]) }}" method="POST">
+                    <form action="{{ route('admin.videos.delete', ['id' => $video->id_video]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Eliminar</button>
@@ -531,7 +531,7 @@
                   <p>¿Estás seguro que deseas eliminar el plan <strong>{{ $plan->nombre_plan }}</strong>?</p>
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ route('admin.planes.destroy', ['id' => $plan->id_plan]) }}" method="POST">
+                    <form action="{{ route('admin.planes.delete', ['id' => $plan->id_plan]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -635,7 +635,7 @@
               <p>¿Estás seguro que deseas eliminar el género <strong>{{ $genero->nombre_genero }}</strong>?</p>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('admin.generos.destroy', ['id' => $genero->id_genero]) }}" method="POST">
+                <form action="{{ route('admin.generos.delete', ['id' => $genero->id_genero]) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
