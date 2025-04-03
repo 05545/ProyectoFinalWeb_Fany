@@ -97,11 +97,11 @@ class VideosControllr extends Controller
   
           if ($request->hasFile('modal_caratula_streaming')) {
               // Eliminar la imagen anterior si existe
-              if ($streaming->caratula_streaming) {
+              if ($streaming->caratula_streaming && file_exists(public_path('Peliculas/imagen/' . $streaming->caratula_streaming))) {
                   unlink(public_path('Peliculas/imagen/' . $streaming->caratula_streaming));
               }
               // Subir la nueva imagen
-              $file = $request->file('caratula_streaming');
+              $file = $request->file('modal_caratula_streaming');
               $filename = time() . '.' . $file->getClientOriginalExtension();
               $file->move(public_path('Peliculas/imagen/'), $filename);
               $streaming->caratula_streaming = $filename;
@@ -109,7 +109,7 @@ class VideosControllr extends Controller
   
           if ($request->hasFile('modal_trailer_streaming')) {
               // Eliminar el video anterior si existe
-              if ($streaming->trailer_streaming) {
+              if ($streaming->trailer_streaming && file_exists(public_path('Peliculas/videos/' . $streaming->trailer_streaming))) {
                   unlink(public_path('Peliculas/videos/' . $streaming->trailer_streaming));
               }
               // Subir el nuevo video
