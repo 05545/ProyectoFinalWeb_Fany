@@ -38,7 +38,7 @@ class LoginController extends Controller
             if ($user->id_rol === 745 && $user->estatus_usuario === 1) {
                 return redirect()->route('admin.tablero');
             } elseif ($user->id_rol === 125 && $user->estatus_usuario === 1) {
-               // return redirect()->route('operador.home');
+                return redirect()->route('operador.home');
             } elseif ($user->id_rol === 58 && $user->estatus_usuario === 1) {
               //  return redirect()->route('public.home');
             } else {
@@ -50,6 +50,7 @@ class LoginController extends Controller
         // Si la autenticación falla
         return redirect()->route('client.login')->withErrors(['usuario' => 'Credenciales incorrectas.']);
     }
+    
     public function logout()
     {
         auth()->guard()->logout();

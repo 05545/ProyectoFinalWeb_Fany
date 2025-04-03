@@ -33,4 +33,11 @@ class PagosController extends Controller
     // Redirige con un mensaje de éxito
     return redirect()->back()->with('success', 'El estado del pago se ha actualizado correctamente.');
 }
+
+    public function destroy($id_pago)
+    {
+        $pago = TablaPagos::findOrFail($id_pago);
+        $pago->delete();
+        return redirect()->back()->with('success', 'El pago ha sido eliminado correctamente.');
+    }
 }

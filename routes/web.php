@@ -59,3 +59,15 @@ Route::get('/operador/home', [TableroOperadorController::class, 'index'])->name(
 Route::get('/operador/clientes', [ClientesController::class, 'index'])->name('operador.client');
 Route::get('/operador/perfil', [PerfilController::class, 'index_operador'])->name('operador.Perfil');
 Route::get('/operador/pagos', [PagosController::class, 'index'])->name('operador.pagos');
+
+//Rutas para editar
+Route::put('/operador/clientes/update/{id}', [ClientesController::class, 'update'])->name('operador.client.update');
+Route::delete('/operador/clientes/delete/{id}', [ClientesController::class, 'destroy'])->name('operador.client.delete');
+
+//Rutas para crear
+Route::post('/operador/clientes/store', [ClientesController::class, 'store'])->name('operador.client.store');
+Route::put('/operador/perfil/update/{id}', [PerfilController::class, 'update'])->name('operador.perfil.update');
+Route::put('/operador/perfil/update_password/{id}', [PerfilController::class, 'cambiar_contrasena'])->name('operador.perfil.update_password');
+//Rutas para pagos
+Route::patch('/operador/pagos/update/{id_pago}', [PagosController::class, 'update_pagos'])->name('operador.pagos.update');
+Route::delete('/operador/pagos/delete/{id_pago}', [PagosController::class, 'destroy'])->name('operador.pagos.delete');

@@ -58,7 +58,7 @@ class ClientesController extends Controller
         $usuario->password_usuario = Hash::make($request->password_usuario);
         $usuario->id_rol= 58; // Asignar el ID del rol correspondiente
         $usuario->save();
-        return redirect()->route('operador.clientes')->with('success', 'Usuario creado correctamente');
+        return redirect()->route('operador.client')->with('success', 'Usuario creado correctamente');
 
         // return redirect()->route('ruta.deseada')->with('success', 'Cliente creado exitosamente.');
     }

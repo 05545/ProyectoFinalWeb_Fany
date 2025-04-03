@@ -10,10 +10,10 @@
       <!-- User Panel -->
       <div class="user-panel">
         <div class="image">
-          <img src="https://via.placeholder.com/40/c17fff/ffffff?text=U" alt="User Image">
+            <img src="{{asset('storage/' . Auth::user()->imagen_usuario)}}" alt="User Image">
         </div>
         <div class="info">
-          <a href="{{route('operador.Perfil')}}">Alexander Pierce</a>
+          <a href="{{route('operador.Perfil')}}">{{Auth::user()->nombre_usuario}}</a>
         </div>
       </div>
   
