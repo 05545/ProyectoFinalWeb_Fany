@@ -1,13 +1,19 @@
 <?php
 
 use App\Http\Controllers\admin\TableroController;
+use App\Http\Controllers\AlquilerController;
 use App\Http\Controllers\GendersPublicController;
+use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\admin\UsuariosController;
 use App\Http\Controllers\admin\GenerosController;
 use App\Http\Controllers\admin\PlanesController;
 use App\Http\Controllers\admin\VideosControllr;
+use App\Http\Controllers\PagosPublicController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\PlanesClientController;
+use App\Http\Controllers\PlanningPageController;
+use App\Http\Controllers\StreamingPublicController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\op\TableroOperadorController;
 use App\Http\Controllers\op\ClientesController;
@@ -17,11 +23,14 @@ Route::get('/', function () {
     return view('client.homePage');
 });
 
+Route::get('/',[HomePageController::class, 'Home'])->name('client.home');
+
 Route::get('/login', [LoginController::class, 'index'])->name('client.login');
 Route::post('/login/session', [LoginController::class, 'iniciar_sesion'])->name('client.iniciar_sesion');
-Route::get('/logout', [LoginController::class, 'logout'])->name('client.logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('client.logout');
 Route::get('/genders', [GendersPublicController::class,'Gender'])->name('client.gender');
-
+Route::get('/genero/{id_genero}', [GendersPublicController::class, 'detalleGenero'])->name('genero.detalle');
+Route::get('/planning', [PlanningPageController::class, 'planning'])->name('client.planning');
 
 //Ruta de admisntrador
 Route::get('/administrador/tablero', [TableroController::class, 'index'])->name('admin.tablero');
@@ -68,6 +77,25 @@ Route::delete('/operador/clientes/delete/{id}', [ClientesController::class, 'des
 Route::post('/operador/clientes/store', [ClientesController::class, 'store'])->name('operador.client.store');
 Route::put('/operador/perfil/update/{id}', [PerfilController::class, 'update'])->name('operador.perfil.update');
 Route::put('/operador/perfil/update_password/{id}', [PerfilController::class, 'cambiar_contrasena'])->name('operador.perfil.update_password');
+
 //Rutas para pagos
 Route::patch('/operador/pagos/update/{id_pago}', [PagosController::class, 'update_pagos'])->name('operador.pagos.update');
 Route::delete('/operador/pagos/delete/{id_pago}', [PagosController::class, 'destroy'])->name('operador.pagos.delete');
+
+Route::get('/streaming', [StreamingPublicController::class, 'streaming'])->name('client.streaming');
+Route::get('/streaming/{id}', [StreamingPublicController::class, 'detalleStreaming'])->name('client.streaming.show');
+
+// Perfil
+Route::get('/perfil', [PerfilController::class, 'perfil'])->name('client.perfil');
+
+// Alquiler
+Route::get('/alquiler', [AlquilerController::class, 'encontrarAlquiler'])->name('client.alquiler');
+Route::get('/alquiler/{idStreaming}', [AlquilerController::class, 'alquilerElemento'])->name('client.alquiler.streaming');
+Route::get('/alquiler/contrato/actuales', [AlquilerController::class, 'encontrarAlquiler'])->name('client.alquiler.info');
+Route::post('/alquiler/contrato/cancelar/{idAlquiler}', [AlquilerController::class, 'cancelarAlquiler'])->name('client.alquiler.cancelar');
+
+// Pagos
+Route::get('/pagos', [PagosPublicController::class, 'pago'])->name('client.pagos');
+Route::get('/pagos/crear', [PagosPublicController::class, 'pago'])->name('client.pagos.create');
+
+Route::post('/planes/crear', [PlanesClientController::class, 'contratar'])->name('client.planes.contrato');

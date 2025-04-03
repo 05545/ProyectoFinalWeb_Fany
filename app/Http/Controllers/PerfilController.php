@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TablaAlquileres;
+use App\Models\TablaPlanes;
+use App\Models\TablaUsuarios_Planes;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -36,8 +40,8 @@ class PerfilController extends Controller
         if ($request->hasFile('imagen_usuario')) {
             // Eliminar imagen anterior, si existe
             if ($user->imagen_usuario) {
-            $ruta_anterior = Str::after($user->imagen_usuario, 'storage/');
-            Storage::disk('public')->delete($ruta_anterior);
+                $ruta_anterior = Str::after($user->imagen_usuario, 'storage/');
+                Storage::disk('public')->delete($ruta_anterior);
             }
 
             $nueva_ruta = $request->file('imagen_usuario')->hashName();
@@ -47,10 +51,10 @@ class PerfilController extends Controller
         // Validar los datos del formulario
         $user->save();
 
-        if($user->id_rol == 125){
+        if ($user->id_rol == 125) {
             //ruta para operador
-           return redirect()->route('operador.Perfil')->with('success', 'Perfil actualizado correctamente.');
-        }else{
+            return redirect()->route('operador.Perfil')->with('success', 'Perfil actualizado correctamente.');
+        } else {
             //ruta para administrador
             return redirect()->route('admin.perfil')->with('success', 'Perfil actualizado correctamente.');
         }
@@ -64,25 +68,82 @@ class PerfilController extends Controller
             'current_password' => 'required',
             'new_password' => 'required|min:8|confirmed', // Esto espera que exista un campo new_password_confirmation
         ]);
-    
+
         // Obtener el usuario a actualizar
         $user = Usuario::findOrFail($id);
-    
+
         // Verificar que la contraseña actual sea correcta (asegúrate de usar la columna correcta)
         if (!Hash::check($request->input('current_password'), $user->password_usuario)) {
             return redirect()->back()->withErrors(['current_password' => 'La contraseña actual no es correcta.']);
         }
-    
+
         // Actualizar la contraseña
         $user->password_usuario = Hash::make($request->input('new_password'));
         $user->save();
-    
-        if($user->id_rol == 125){
+
+        if ($user->id_rol == 125) {
             //ruta para operador
             return redirect()->route('operador.Perfil')->with('success', 'Perfil actualizado correctamente.');
-        }else{
+        } else {
             //ruta para administrador
-           return redirect()->route('admin.perfil')->with('success', 'Perfil actualizado correctamente.');
+            return redirect()->route('admin.perfil')->with('success', 'Perfil actualizado correctamente.');
         }
-}
+    }
+
+    public function perfil()
+    {
+        $usuario = Auth::user();
+        
+        if (!$usuario) {
+            return redirect()->route('client.login');
+        }
+        
+        $usuarioPlan = TablaUsuarios_Planes::where('id_usuario', $usuario->id_usuario)
+            ->where('fecha_fin_plan', '>=', now())
+            ->orderBy('fecha_fin_plan', 'desc')
+            ->first();
+            
+        $plan = null;
+        if ($usuarioPlan) {
+            $plan = TablaPlanes::find($usuarioPlan->id_plan);
+        }
+        
+        $proximaRenovacion = $usuarioPlan ? $usuarioPlan->fecha_fin_plan : null;
+        $planes = TablaPlanes::where('estatus_plan', 1)->get();
+        
+        $alquileres = TablaAlquileres::with('streaming')
+            ->where('id_usuario', $usuario->id_usuario)
+            ->orderBy('fecha_inicio_alquiler', 'desc')
+            ->take(4) 
+            ->get();
+            
+        $totalAlquileres = TablaAlquileres::where('id_usuario', $usuario->id_usuario)->count();
+        $alquileresActivos = TablaAlquileres::where('id_usuario', $usuario->id_usuario)
+            ->where('estatus_alquiler', 1)
+            ->where('fecha_fin_alquiler', '>=', now())
+            ->count();
+            
+        $limiteAlquileres = $plan ? $plan->cantidad_limite_plan : 0;
+        $alquileresDisponibles = $limiteAlquileres - $alquileresActivos;
+        if ($alquileresDisponibles < 0) $alquileresDisponibles = 0;
+        
+        $nombreCompleto = $usuario->nombre_usuario . ' ' . $usuario->ap_usuario . ' ' . $usuario->am_usuario;
+        
+        $fechaRegistro = Carbon::parse($usuario->created_at)->format('d \d\e F, Y');
+        $fechaRenovacion = $proximaRenovacion ? Carbon::parse($proximaRenovacion)->format('d \d\e F, Y') : 'No disponible';
+        
+        return view('client.account', compact(
+            'usuario',
+            'nombreCompleto',
+            'fechaRegistro',
+            'plan',
+            'fechaRenovacion',
+            'alquileres',
+            'totalAlquileres',
+            'alquileresActivos',
+            'alquileresDisponibles',
+            'planes',
+            'limiteAlquileres'
+        ));
+    }
 }

@@ -27,7 +27,7 @@
 <body>
     @include('includes.client.header')
 
-    @yield('contents')
+    @yield('content')
 
     @include('includes.client.footer')
     @yield('js')

@@ -25,4 +25,9 @@ class TablaGeneros extends Model
     {
         return $this->hasMany(TablaPlanes::class, 'id_plan', 'id_plan');
     }
+
+    public function streamings()
+    {
+        return $this->hasMany(TablaStreaming::class, 'id_genero', 'id_genero');
+    }
 }

@@ -1,487 +1,252 @@
-@extends('layouts.appClient')    
-@section('contents')
-    <!-- ***** Área del Banner Principal ***** -->
-    <div class="main-banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 align-self-center">
-                    <div class="header-text">
-                        <h6>Blockbuster Streaming</h6>
-                        <h2>Disfruta de las Mejores Películas y Series.</h2>
-                        <p>Blockbuster Streaming te ofrece la mejor selección de películas y series para disfrutar donde y cuando quieras. Con nuestros diferentes planes, podrás encontrar la opción perfecta que se adapte a tus necesidades de entretenimiento. ¡Regístrate hoy y comienza a disfrutar!</p>
-                        <div class="buttons">
-                            <div class="border-button">
-                                <a href="explore.html">Explorar Catálogo</a>
-                            </div>
-                            <div class="main-button">
-                                <a href="planes.html">Ver Nuestros Planes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1">
-                    <div class="owl-banner owl-carousel">
-                        <div class="item">
-                            <img src="{{ asset('resources/client/img/banner-01.png') }}" alt="Cartelera de películas destacadas">
-                        </div>
-                        <div class="item">
-                            <img src="{{ asset('resources/client/img/banner-02.png') }}" alt="Cartelera de series destacadas">
+@extends('layouts.appClient')
+@section('content')
+    <main class="main" style="background-color: #000;">
+        <!-- Banner Promocional Planes - Estilo Moderno -->
+        <section id="planes-promocional" class="section"
+            style="padding: 80px 0; background: linear-gradient(135deg, #6A0DAD 0%, #9C27B0 100%); color: white;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10" data-aos="fade-up">
+                        <h2
+                            style="font-size: 36px; margin-bottom: 30px; text-align: center; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                            <span style="border-bottom: 3px solid #BA68C8; padding-bottom: 5px;">Nuestros Planes</span>
+                        </h2>
+
+                        <div class="row justify-content-center">
+                            @php
+                                $planesDestacados = $planes->take(3);
+                                $planContador = 0;
+                            @endphp
+
+                            @forelse($planesDestacados as $index => $plan)
+                                                    @php
+                                                        $planContador++;
+                                                        $esDestacado = ($planContador == 2);
+                                                    @endphp
+                                                    <div class="col-md-4 mb-4" style="padding: 15px;">
+                                                        <div class="plan-card" style="background-color: {{ $esDestacado ? '#1A1A1A' : '#2A2A2A' }};
+                                                                            border-radius: 15px;
+                                                                            padding: 30px;
+                                                                            height: 100%;
+                                                                            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+                                                                            transition: all 0.3s ease;
+                                                                            border: 1px solid {{ $esDestacado ? '#9C27B0' : 'transparent' }};
+                                                                            {{ $esDestacado ? 'transform: translateY(-10px);' : '' }}">
+                                                            <h3 style="font-size: 24px; color: #BA68C8; text-align: center; margin-bottom: 20px;">
+                                                                {{ strtoupper($plan->nombre_plan) }}
+                                                            </h3>
+                                                            <div style="text-align: center; margin-bottom: 25px;">
+                                                                <span style="font-size: 14px; color: #CE93D8;">Desde solo</span>
+                                                                <p style="font-size: 42px; font-weight: bold; margin: 5px 0; color: #E1BEE7;">
+                                                                    ${{ number_format($plan->precio_plan, 2) }}
+                                                                    <span style="font-size: 16px; color: #CE93D8;">/mes</span>
+                                                                </p>
+                                                            </div>
+                                                            <div style="text-align: center;">
+                                                                <a href="#" class="btn-plan" style="background-color: #9C27B0; 
+                                                                                  color: white; 
+                                                                                  padding: 10px 25px;
+                                                                                  border-radius: 30px;
+                                                                                  font-weight: 600;
+                                                                                  text-transform: uppercase;
+                                                                                  letter-spacing: 1px;
+                                                                                  transition: all 0.3s ease;">
+                                                                    Suscribirse
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                            @empty
+                                <div class="col-12 text-center">
+                                    <p style="color: #BA68C8; font-size: 18px;">No hay planes disponibles en este momento.</p>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- ***** Área del Banner Principal End ***** -->
+        </section><!-- /Banner Promocional Planes -->
+<!-- Novedades - Diseño Alternativo en Mosaico -->
+<section id="novedades" class="section" style="padding: 80px 0; background-color: #000;">
+            <div class="container">
+                <div class="section-header" style="text-align: center; margin-bottom: 50px;">
+                    <h2 style="font-size: 36px; color: #BA68C8; position: relative; display: inline-block; font-weight: 800;">
+                        <span style="display: inline-block; position: relative;">
+                            NOVEDADES
+                            <span style="position: absolute; bottom: -10px; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #9C27B0, transparent);"></span>
+                        </span>
+                    </h2>
+                    <p style="color: #CE93D8; max-width: 600px; margin: 15px auto 0; font-size: 16px;">
+                        Explora nuestro catálogo más reciente
+                    </p>
+                </div>
 
-    <div class="categories-collections">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="categories">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section-heading">
-                                    <div class="line-dec"></div>
-                                    <h2>Explora Nuestros <em>Géneros</em> Disponibles.</h2>
-                                </div>
+                <!-- Diseño alternativo tipo masonry -->
+                <div class="row" data-aos="fade-up">
+                    <!-- Estreno destacado en formato horizontal -->
+                    @if($estreno)
+                    <div class="col-12 mb-4">
+                        <div class="featured-horizontal" 
+                             style="position: relative; 
+                                    border-radius: 12px; 
+                                    overflow: hidden; 
+                                    height: 300px;
+                                    display: flex;
+                                    box-shadow: 0 15px 30px rgba(156, 39, 176, 0.3);">
+                            <div style="flex: 1; min-width: 50%;">
+                                <img src="{{ asset('streaming/imagen/' . ($estreno->caratula_streaming ?? 'placeholder.png')) }}"
+                                    alt="{{ $estreno->nombre_streaming }}"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="item">
-                                    <div class="icon">
-                                        <img src="{{ asset('resources/client/img/icon-01.png') }}" alt="Acción">
-                                    </div>
-                                    <h4>Acción</h4>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                                    </div>
+                            <div style="flex: 1; padding: 30px; background: linear-gradient(to right, #1A1A1A, #2A2A2A);">
+                                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                    <span style="background-color: #9C27B0; color: white; padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">ESTRENO</span>
+                                    <span style="margin-left: 10px; color: #CE93D8; font-size: 14px;">
+                                        {{ $estreno->temporadas_streaming > 0 ? 'Serie' : 'Película' }}
+                                    </span>
                                 </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="item">
-                                    <div class="icon">
-                                        <img src="{{ asset('resources/client/img/icon-02.png') }}" alt="Comedia">
-                                    </div>
-                                    <h4>Comedia</h4>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="item">
-                                    <div class="icon">
-                                        <img src="{{ asset('resources/client/img/icon-03.png') }}" alt="Drama">
-                                    </div>
-                                    <h4>Drama</h4>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="item">
-                                    <div class="icon">
-                                        <img src="{{ asset('resources/client/img/icon-04.png') }}" alt="Animadas">
-                                    </div>
-                                    <h4>Animadas</h4>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="item">
-                                    <div class="icon">
-                                        <img src="{{ asset('resources/client/img/icon-05.png') }}" alt="Terror">
-                                    </div>
-                                    <h4>Terror</h4>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6">
-                                <div class="item">
-                                    <div class="icon">
-                                        <img src="{{ asset('resources/client/img/icon-06.png') }}" alt="Documental">
-                                    </div>
-                                    <h4>Documental</h4>
-                                    <div class="icon-button">
-                                        <a href="#"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-                                </div>
+                                <h3 style="margin: 0 0 15px; font-size: 28px; color: white;">{{ $estreno->nombre_streaming }}</h3>
+                                <p style="margin-bottom: 20px; font-size: 15px; color: #E1BEE7; line-height: 1.5;">
+                                    {{ \Illuminate\Support\Str::limit($estreno->sipnosis_streaming, 200) }}
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="collections">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="section-heading">
-                                    <div class="line-dec"></div>
-                                    <h2>Explora Nuestras <em>Colecciones</em> Destacadas.</h2>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="owl-collection owl-carousel">
-                                    <div class="item">
-                                        <img src="{{ asset('resources/client/img/collection-01.jpg') }}" alt="Colección de Acción">
-                                        <div class="down-content">
-                                            <h4>Clásicos de Ciencia Ficción</h4>
-                                            <span class="collection">Títulos en la Colección:<br><strong>25 Películas</strong></span>
-                                            <span class="category">Categoría:<br><strong>Ciencia Ficción</strong></span>
-                                            <div class="main-button">
-                                                <a href="explore.html">Explorar Colección</a>
+                    @endif
+
+                    <!-- Grid de novedades en diseño staggered -->
+                    <div class="col-12">
+                        <div class="row staggered-grid">
+                            @php
+                                $sizes = ['tall', 'wide', 'regular', 'regular', 'tall', 'wide'];
+                                $sizeIndex = 0;
+                            @endphp
+
+                            @forelse($recientes as $reciente)
+                                @php
+                                    $size = $sizes[$sizeIndex % count($sizes)];
+                                    $sizeIndex++;
+                                @endphp
+                                
+                                <div class="col-md-4 mb-4 {{ $size === 'wide' ? 'col-lg-8' : '' }} {{ $size === 'tall' ? 'staggered-tall' : '' }}">
+                                    <div class="staggered-item {{ $size }}"
+                                         style="position: relative;
+                                                border-radius: 10px;
+                                                overflow: hidden;
+                                                height: {{ $size === 'tall' ? '500px' : ($size === 'wide' ? '300px' : '250px') }};
+                                                background-color: #1A1A1A;
+                                                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                                                transition: all 0.3s ease;">
+                                        @if($reciente->caratula_streaming)
+                                        <img src="{{ $reciente->caratula_streaming }}"
+                                             alt="{{ $reciente->nombre_streaming }}"
+                                             style="width: 100%; height: 100%; object-fit: cover;">
+                                        @else
+                                        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                            <p style="color: #BA68C8;">{{ $reciente->nombre_streaming }}</p>
+                                        </div>
+                                        @endif
+                                        
+                                        <div class="staggered-overlay"
+                                             style="position: absolute;
+                                                    bottom: 0;
+                                                    left: 0;
+                                                    right: 0;
+                                                    padding: 20px;
+                                                    background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+                                            <h5 style="margin: 0 0 5px; font-size: 18px; color: white;">{{ $reciente->nombre_streaming }}</h5>
+                                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                <span style="font-size: 12px; color: #CE93D8;">
+                                                    {{ $reciente->genero ? $reciente->genero->nombre_genero : 'Sin género' }}
+                                                </span>
+                                                <div class="play-icon-small" 
+                                                     style="width: 30px; height: 30px; background-color: rgba(156, 39, 176, 0.8); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                                    </svg>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <img src="{{ asset('resources/client/img/collection-01.jpg') }}" alt="Colección de Terror">
-                                        <div class="down-content">
-                                            <h4>Maratón de Terror</h4>
-                                            <span class="collection">Títulos en la Colección:<br><strong>18 Películas</strong></span>
-                                            <span class="category">Categoría:<br><strong>Terror</strong></span>
-                                            <div class="main-button">
-                                                <a href="explore.html">Explorar Colección</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <img src="{{asset('resources/client/img/collection-01.jpg')}}" alt="Colección de Series">
-                                        <div class="down-content">
-                                            <h4>Series Premiadas</h4>
-                                            <span class="collection">Títulos en la Colección:<br><strong>12 Series</strong></span>
-                                            <span class="category">Categoría:<br><strong>Drama</strong></span>
-                                            <div class="main-button">
-                                                <a href="explore.html">Explorar Colección</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <img src="{{ asset('resources/client/img/collection-01.jpg') }}" alt="Colección de Comedias">
-                                        <div class="down-content">
-                                            <h4>Comedias Imperdibles</h4>
-                                            <span class="collection">Títulos en la Colección:<br><strong>20 Películas</strong></span>
-                                            <span class="category">Categoría:<br><strong>Comedia</strong></span>
-                                            <div class="main-button">
-                                                <a href="explore.html">Explorar Colección</a>
-                                            </div>
-                                        </div>
+                                </div>
+                            @empty
+                                <div class="col-12 text-center">
+                                    <div style="background-color: #1A1A1A; border-radius: 10px; padding: 40px;">
+                                        <p style="color: #BA68C8; font-size: 18px;">No hay novedades disponibles</p>
                                     </div>
                                 </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <div class="create-nft">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="section-heading">
-                        <div class="line-dec"></div>
-                        <h2>Únete a Blockbuster Streaming en 3 Simples Pasos.</h2>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="main-button">
-                        <a href="registro.html">Regístrate Ahora</a>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item first-item">
-                        <div class="number">
-                            <h6>1</h6>
-                        </div>
-                        <div class="icon">
-                            <img src="{{ asset('resources/client/img/icon-02.png') }}" alt="Registro">
-                        </div>
-                        <h4>Regístrate y Elige tu Plan</h4>
-                        <p>Crea tu cuenta en nuestra plataforma y selecciona el plan que mejor se adapte a tus necesidades y presupuesto. Contamos con diferentes opciones para todo tipo de usuarios.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item second-item">
-                        <div class="number">
-                            <h6>2</h6>
-                        </div>
-                        <div class="icon">
-                            <img src="{{ asset('resources/client/img/icon-04.png') }}" alt="Pago">
-                        </div>
-                        <h4>Realiza tu Pago</h4>
-                        <p>Efectúa el pago de tu suscripción utilizando cualquiera de nuestros métodos de pago disponibles. El proceso es rápido, seguro y totalmente en línea.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="icon">
-                            <img src="{{ asset('resources/client/img/icon-06.png') }}" alt="Disfruta">
-                        </div>
-                        <h4>¡Comienza a Disfrutar!</h4>
-                        <p>Una vez completado el registro y el pago, tendrás acceso inmediato a todo nuestro catálogo de películas y series. Podrás alquilar contenido según el límite de tu plan elegido.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <style>
+        .plan-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 15px 30px rgba(156, 39, 176, 0.4) !important;
+        }
 
-    <div class="currently-market">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="section-heading">
-                        <div class="line-dec"></div>
-                        <h2><em>Contenido</em> Destacado del Momento.</h2>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="filters">
-                        <ul>
-                            <li data-filter="*" class="active">Todo</li>
-                            <li data-filter=".msc">Series</li>
-                            <li data-filter=".dig">Películas</li>
-                            <li data-filter=".blc">Nuevos Lanzamientos</li>
-                            <li data-filter=".vtr">Más Vistos</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="row grid">
-                        <div class="col-lg-6 currently-market-item all msc">
-                            <div class="item">
-                                <div class="left-image">
-                                    <img src="{{ asset('resources/client/img/market-01.jpg') }}" alt="Serie Popular"
-                                        style="border-radius: 20px; min-width: 195px;">
-                                </div>
-                                <div class="right-content">
-                                    <h4>Breaking Code</h4>
-                                    <span class="author">
-                                        <img src="{{ asset('resources/client/img/author.jpg') }}" alt="Director"
-                                            style="max-width: 50px; border-radius: 50%;">
-                                        <h6>Director<br><a href="#">@famosodirector</a></h6>
-                                    </span>
-                                    <div class="line-dec"></div>
-                                    <span class="bid">
-                                        Clasificación<br><strong>16+</strong><br><em>(Drama/Suspenso)</em>
-                                    </span>
-                                    <span class="ends">
-                                        Temporadas<br><strong>5 Temporadas</strong><br><em>(60 Episodios)</em>
-                                    </span>
-                                    <div class="text-button">
-                                        <a href="details.html">Ver Detalles</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 currently-market-item all dig">
-                            <div class="item">
-                                <div class="left-image">
-                                    <img src="{{ asset('resources/client/img/market-01.jpg') }}" alt="Película Popular"
-                                        style="border-radius: 20px; min-width: 195px;">
-                                </div>
-                                <div class="right-content">
-                                    <h4>El Último Horizonte</h4>
-                                    <span class="author">
-                                        <img src="{{ asset('resources/client/img/author.jpg') }}" alt="Director"
-                                            style="max-width: 50px; border-radius: 50%;">
-                                        <h6>Director<br><a href="#">@otrodirector</a></h6>
-                                    </span>
-                                    <div class="line-dec"></div>
-                                    <span class="bid">
-                                        Clasificación<br><strong>13+</strong><br><em>(Ciencia Ficción)</em>
-                                    </span>
-                                    <span class="ends">
-                                        Duración<br><strong>2h 15min</strong><br><em>(2023)</em>
-                                    </span>
-                                    <div class="text-button">
-                                        <a href="details.html">Ver Detalles</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 currently-market-item all blc">
-                            <div class="item">
-                                <div class="left-image">
-                                    <img src="{{ asset('resources/client/img/market-01.jpg') }}" alt="Nuevo Lanzamiento"
-                                        style="border-radius: 20px; min-width: 195px;">
-                                </div>
-                                <div class="right-content">
-                                    <h4>Mundos Paralelos</h4>
-                                    <span class="author">
-                                        <img src="{{ asset('resources/client/img/author.jpg') }}" alt="Director"
-                                            style="max-width: 50px; border-radius: 50%;">
-                                        <h6>Director<br><a href="#">@directorfamoso</a></h6>
-                                    </span>
-                                    <div class="line-dec"></div>
-                                    <span class="bid">
-                                        Clasificación<br><strong>16+</strong><br><em>(Aventura/Fantasía)</em>
-                                    </span>
-                                    <span class="ends">
-                                        Duración<br><strong>2h 30min</strong><br><em>(2024)</em>
-                                    </span>
-                                    <div class="text-button">
-                                        <a href="details.html">Ver Detalles</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 currently-market-item all vtr">
-                            <div class="item">
-                                <div class="left-image">
-                                    <img src="{{ asset('resources/client/img/market-01.jpg') }}" alt="Más Visto"
-                                        style="border-radius: 20px; min-width: 195px;">
-                                </div>
-                                <div class="right-content">
-                                    <h4>Héroes Sin Capa</h4>
-                                    <span class="author">
-                                        <img src="{{ asset('resources/client/img/author.jpg') }}" alt="Director"
-                                            style="max-width: 50px; border-radius: 50%;">
-                                        <h6>Director<br><a href="#">@granproductor</a></h6>
-                                    </span>
-                                    <div class="line-dec"></div>
-                                    <span class="bid">
-                                        Clasificación<br><strong>TP</strong><br><em>(Acción/Comedia)</em>
-                                    </span>
-                                    <span class="ends">
-                                        Duración<br><strong>1h 58min</strong><br><em>(2023)</em>
-                                    </span>
-                                    <div class="text-button">
-                                        <a href="details.html">Ver Detalles</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 currently-market-item all vrt dig">
-                            <div class="item">
-                                <div class="left-image">
-                                    <img src="{{ asset('resources/client/img/market-01.jpg') }}" alt="Película Popular"
-                                        style="border-radius: 20px; min-width: 195px;">
-                                </div>
-                                <div class="right-content">
-                                    <h4>Pesadillas Nocturnas</h4>
-                                    <span class="author">
-                                        <img src="{{ asset('resources/client/img/author.jpg') }}" alt="Director"
-                                            style="max-width: 50px; border-radius: 50%;">
-                                        <h6>Director<br><a href="#">@directorterror</a></h6>
-                                    </span>
-                                    <div class="line-dec"></div>
-                                    <span class="bid">
-                                        Clasificación<br><strong>18+</strong><br><em>(Terror/Suspenso)</em>
-                                    </span>
-                                    <span class="ends">
-                                        Duración<br><strong>1h 45min</strong><br><em>(2023)</em>
-                                    </span>
-                                    <div class="text-button">
-                                        <a href="details.html">Ver Detalles</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 currently-market-item all msc blc">
-                            <div class="item">
-                                <div class="left-image">
-                                    <img src="{{asset('resources/client/img/market-01.jpg')}}" alt="Serie Nueva"
-                                        style="border-radius: 20px; min-width: 195px;">
-                                </div>
-                                <div class="right-content">
-                                    <h4>Historias del Ayer</h4>
-                                    <span class="author">
-                                        <img src="assets/images/author.jpg" alt="Director"
-                                            style="max-width: 50px; border-radius: 50%;">
-                                        <h6>Director<br><a href="#">@directorseries</a></h6>
-                                    </span>
-                                    <div class="line-dec"></div>
-                                    <span class="bid">
-                                        Clasificación<br><strong>16+</strong><br><em>(Drama/Historia)</em>
-                                    </span>
-                                    <span class="ends">
-                                        Temporadas<br><strong>2 Temporadas</strong><br><em>(16 Episodios)</em>
-                                    </span>
-                                    <div class="text-button">
-                                        <a href="details.html">Ver Detalles</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        .btn-plan:hover {
+            background-color: #7B1FA2 !important;
+            transform: translateY(-2px);
+        }
 
-    <!-- Sección de Planes -->
-    <div class="create-nft">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="section-heading">
-                        <div class="line-dec"></div>
-                        <h2>Nuestros Planes de Suscripción</h2>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="main-button">
-                        <a href="planes.html">Ver Todos los Planes</a>
-                    </div>
-                </div>
-                
-                <!-- Plan Básico -->
-                <div class="col-lg-4">
-                    <div class="item first-item">
-                        <div class="number">
-                            <h6>Básico</h6>
-                        </div>
-                        <div class="icon">
-                            <img src="{{ asset('resources/client/img/icon-02.png') }}" alt="Plan Básico">
-                        </div>
-                        <h4>$9.99 / mes</h4>
-                        <p>Acceso a películas y series de nuestro catálogo con límite de 5 alquileres mensuales. Ideal para usuarios ocasionales.</p>
-                        <div class="main-button">
-                            <a href="registro.html">Elegir Plan</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Plan Estándar -->
-                <div class="col-lg-4">
-                    <div class="item second-item">
-                        <div class="number">
-                            <h6>Estándar</h6>
-                        </div>
-                        <div class="icon">
-                            <img src="{{ asset('resources/client/img/icon-04.png') }}" alt="Plan Estándar">
-                        </div>
-                        <h4>$14.99 / mes</h4>
-                        <p>Acceso a todo nuestro catálogo con límite de 10 alquileres mensuales. Perfecto para familias pequeñas o usuarios regulares.</p>
-                        <div class="main-button">
-                            <a href="registro.html">Elegir Plan</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Plan Premium -->
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="number">
-                            <h6>Premium</h6>
-                        </div>
-                        <div class="icon">
-                            <img src="{{ asset('resources/client/img/icon-06.png') }}" alt="Plan Premium">
-                        </div>
-                        <h4>$19.99 / mes</h4>
-                        <p>Acceso ilimitado a nuestro catálogo completo, incluidos estrenos exclusivos. Sin límite de alquileres mensuales.</p>
-                        <div class="main-button">
-                            <a href="registro.html">Elegir Plan</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        .new-item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3) !important;
+        }
 
+        .new-item-card:hover .play-icon {
+            opacity: 1;
+        }
+
+        .featured-horizontal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(156, 39, 176, 0.4) !important;
+        }
+        
+        .staggered-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(156, 39, 176, 0.4) !important;
+        }
+        
+        .staggered-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .staggered-grid > div {
+            flex: 1 1 calc(33.333% - 20px);
+            min-width: 250px;
+        }
+        
+        .staggered-tall {
+            flex: 1 1 calc(50% - 20px) !important;
+        }
+        
+        @media (max-width: 992px) {
+            .featured-horizontal {
+                flex-direction: column;
+                height: auto !important;
+            }
+            
+            .featured-horizontal > div {
+                min-width: 100% !important;
+            }
+            
+            .staggered-grid > div {
+                flex: 1 1 calc(50% - 20px) !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .staggered-grid > div {
+                flex: 1 1 100% !important;
+            }
+        }
+    </style>
 @endsection

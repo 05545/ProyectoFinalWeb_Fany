@@ -13,7 +13,8 @@ class GenerosController extends Controller
         return view('admon.type_genres');
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'nombre_genero' => 'required|string',
             'descripcion_genero' => 'required|string',
@@ -26,10 +27,10 @@ class GenerosController extends Controller
         $genero->estatus_genero = $request->estatus_genero;
         $genero->save();
         return redirect()->route('admin.generos');
-        
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'modal_nombre_genero' => 'required|string',
             'modal_descripcion_genero' => 'required|string',
@@ -44,7 +45,8 @@ class GenerosController extends Controller
         return redirect()->route('admin.tablero')->with('success', 'Genero actualizado correctamente');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $genero = Generos::find($id);
         $genero->delete();
         return redirect()->route('admin.tablero')->with('success', 'Genero eliminado correctamente');
