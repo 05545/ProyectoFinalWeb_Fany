@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\TableroController;
 use App\Http\Controllers\AlquilerController;
+use App\Http\Controllers\CatalogoClientController;
 use App\Http\Controllers\GendersPublicController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\LoginController;
@@ -99,3 +100,9 @@ Route::get('/pagos', [PagosPublicController::class, 'pago'])->name('client.pagos
 Route::get('/pagos/crear', [PagosPublicController::class, 'pago'])->name('client.pagos.create');
 
 Route::post('/planes/crear', [PlanesClientController::class, 'contratar'])->name('client.planes.contrato');
+
+Route::get('/catalogo', [CatalogoClientController::class, 'catalogo'])->name('catalogo');
+Route::get('/streaming/{id}', [StreamingPublicController::class, 'detalleStreaming'])->name('cliente.streaming.show');
+
+Route::get('/alquiler/contrato/actuales', [AlquilerController::class, 'encontrarAlquiler'])->name('cliente.alquiler.info');
+Route::post('/alquiler/contrato/cancelar/{idAlquiler}', [AlquilerController::class, 'cancelarAlquiler'])->name('cliente.alquiler.cancelar');

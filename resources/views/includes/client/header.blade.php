@@ -34,7 +34,6 @@
             @if(Auth::check())
                     <li><a href="{{ route('client.streaming') }}">CONTENIDO</a></li>
                     <li><a href="{{ route('client.alquiler') }}">ALQUILERES</a></li>
-                    <li><a href="{{ route('client.pagos') }}">PAGOS</a></li>
                     <li><a href="{{ route('client.perfil') }}">PERFIL</a></li>
                     <li>
                         <a href="{{ route('client.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
